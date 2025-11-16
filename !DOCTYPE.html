@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学术主页 - 超声影像知识图谱研究</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F4C81', // 深蓝色主色调
+                        secondary: '#3B82F6', // 辅助蓝色
+                        accent: '#10B981', // 强调色（绿色）
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50 text-gray-800">
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full bg-white/95 shadow-sm z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-primary font-bold text-xl md:text-2xl flex items-center">
+                <i class="fa fa-flask mr-2"></i>
+                <span>超声影像研究</span>
+            </a>
+            
+            <!-- 桌面导航 -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="text-gray-600 hover:text-primary transition-colors">关于我</a>
+                <a href="#research" class="text-gray-600 hover:text-primary transition-colors">研究兴趣</a>
+                <a href="#knowledge-graph" class="text-gray-600 hover:text-primary transition-colors">超声影像知识图谱</a>
+                <a href="#publications" class="text-gray-600 hover:text-primary transition-colors">发表论文</a>
+                <a href="#contact" class="text-gray-600 hover:text-primary transition-colors">联系方式</a>
+            </nav>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menu-toggle" class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#about" class="text-gray-600 hover:text-primary py-2 transition-colors">关于我</a>
+                <a href="#research" class="text-gray-600 hover:text-primary py-2 transition-colors">研究兴趣</a>
+                <a href="#knowledge-graph" class="text-gray-600 hover:text-primary py-2 transition-colors">超声影像知识图谱</a>
+                <a href="#publications" class="text-gray-600 hover:text-primary py-2 transition-colors">发表论文</a>
+                <a href="#contact" class="text-gray-600 hover:text-primary py-2 transition-colors">联系方式</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="pt-28 pb-20 bg-gradient-to-br from-primary to-secondary text-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-2/3 mb-10 md:mb-0">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-shadow mb-4">
+                        张明 博士
+                    </h1>
+                    <h2 class="text-[clamp(1.2rem,3vw,1.8rem)] font-light mb-6">
+                        超声影像与知识图谱研究专家
+                    </h2>
+                    <p class="text-lg md:text-xl mb-8 max-w-2xl text-white/90">
+                        专注于超声影像分析、医学知识图谱构建与应用，致力于推动人工智能在医学影像领域的创新发展。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#knowledge-graph" class="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors shadow-lg">
+                            查看知识图谱 <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#publications" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
+                            学术论文
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                        <img src="https://picsum.photos/seed/profile/400/400" alt="张明博士照片" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">关于我</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="prose lg:prose-xl mx-auto">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        我是张明，现任某知名大学医学影像与智能诊断实验室副教授，主要研究方向为超声影像分析与医学知识图谱。2018年于清华大学获得计算机科学与技术博士学位，随后在斯坦福大学进行博士后研究。
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        我的研究结合了计算机视觉、自然语言处理和知识表示学习等技术，致力于构建超声影像领域的知识图谱，开发基于知识驱动的智能诊断系统，以提高超声诊断的准确性和效率。
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        已在IEEE Transactions on Medical Imaging、Medical Image Analysis、MICCAI等顶级期刊和会议发表论文30余篇，主持国家自然科学基金项目2项，参与多项国家级科研项目。担任IEEE Transactions on Biomedical and Health Informatics等期刊审稿人。
+                    </p>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm card-hover">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fa fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">教育背景</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><span class="font-medium">博士</span>，清华大学，计算机科学与技术</li>
+                            <li><span class="font-medium">硕士</span>，浙江大学，生物医学工程</li>
+                            <li><span class="font-medium">学士</span>，上海交通大学，生物医学工程</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm card-hover">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fa fa-briefcase"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">工作经历</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><span class="font-medium">副教授</span>，某知名大学，2021-至今</li>
+                            <li><span class="font-medium">博士后</span>，斯坦福大学，2018-2021</li>
+                            <li><span class="font-medium">研究助理</span>，清华大学，2015-2018</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm card-hover">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fa fa-award"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">荣誉奖励</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>国家优秀青年科学基金，2023</li>
+                            <li>IEEE医学影像青年学者奖，2022</li>
+                            <li>MICCAI最佳论文提名，2020</li>
+                            <li>清华大学优秀博士论文，2018</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究兴趣 -->
+    <section id="research" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">研究兴趣</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                    我的研究聚焦于超声影像分析与医学知识图谱的交叉领域，旨在通过人工智能技术推动超声诊断的智能化发展
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 研究方向1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center">
+                        <i class="fa fa-line-chart text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">超声影像知识图谱构建</h3>
+                        <p class="text-gray-600 mb-4">
+                            研究从超声影像报告、文献和临床数据中抽取实体和关系，构建结构化的超声影像知识图谱，实现多源异构数据的融合与关联。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">知识抽取</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">实体链接</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">关系推理</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 研究方向2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-indigo-400 flex items-center justify-center">
+                        <i class="fa fa-eye text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">超声影像智能分析</h3>
+                        <p class="text-gray-600 mb-4">
+                            基于深度学习和知识图谱的超声影像分析方法研究，包括病灶检测、分割、良恶性鉴别等，提高超声影像诊断的准确性和效率。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">深度学习</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">病灶检测</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">图像分割</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 研究方向3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-green-500 to-teal-400 flex items-center justify-center">
+                        <i class="fa fa-stethoscope text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">知识驱动的辅助诊断</h3>
+                        <p class="text-gray-600 mb-4">
+                            研究基于超声影像知识图谱的辅助诊断系统，实现疾病的智能诊断、鉴别诊断和预后评估，为临床决策提供支持。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">辅助诊断</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">决策支持</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">知识推理</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 研究方向4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-yellow-500 to-orange-400 flex items-center justify-center">
+                        <i class="fa fa-database text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">医学影像数据标准化</h3>
+                        <p class="text-gray-600 mb-4">
+                            研究超声影像数据的标准化和规范化方法，构建高质量的标注数据集，为算法训练和评估提供基础支撑。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">数据标准化</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">标注规范</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">数据集构建</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 研究方向5 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-red-500 to-pink-400 flex items-center justify-center">
+                        <i class="fa fa-mobile text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">移动端超声诊断系统</h3>
+                        <p class="text-gray-600 mb-4">
+                            研究轻量化的超声影像分析算法，开发适用于移动端的超声诊断辅助系统，推动基层医疗和远程医疗的发展。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">模型压缩</span>
+                            <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">移动端AI</span>
+                            <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">远程医疗</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 研究方向6 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-gray-700 to-gray-900 flex items-center justify-center">
+                        <i class="fa fa-users text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-3">多中心协同学习</h3>
+                        <p class="text-gray-600 mb-4">
+                            研究基于联邦学习的多中心超声影像协同分析方法，解决数据孤岛和隐私保护问题，促进跨机构合作研究。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">联邦学习</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">隐私保护</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">协同分析</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 超声影像知识图谱 -->
+    <section id="knowledge-graph" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">超声影像知识图谱</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                    超声影像知识图谱是一个整合了超声影像领域多源信息的结构化知识表示系统，旨在促进超声影像的智能分析与应用
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2">
+                    <!-- 知识图谱可视化 -->
+                    <div class="bg-gray-50 rounded-xl shadow-md p-4 h-[500px] flex items-center justify-center overflow-hidden">
+                        <img src="https://picsum.photos/seed/kgraph/1000/800" alt="超声影像知识图谱可视化" class="max-w-full max-h-full object-contain">
+                        <!-- 在实际应用中，可以替换为交互式知识图谱可视化 -->
+                    </div>
+                </div>
+                
+                <div class="flex flex-col justify-between">
+                    <div class="bg-gray-50 rounded-xl shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-bold text-primary mb-4">知识图谱概述</h3>
+                        <p class="text-gray-600 mb-4">
+                            我们构建的超声影像知识图谱包含以下核心组成部分：
+                        </p>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                <span>超过50,000个医学实体（疾病、解剖结构、超声特征等）</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                <span>120,000+实体关系（解剖关系、因果关系、诊断关系等）</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                <span>整合了100,000+超声影像报告和20,000+相关文献</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                <span>覆盖腹部、心脏、乳腺、甲状腺等多个超声检查部位</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold text-primary mb-4">知识图谱应用</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-2 rounded-full text-primary mr-4">
+                                    <i class="fa fa-search"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">智能影像检索</h4>
+                                    <p class="text-gray-600 text-sm">基于知识图谱的语义检索，实现跨模态影像与文本的关联查询</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-2 rounded-full text-primary mr-4">
+                                    <i class="fa fa-diagnoses"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">辅助诊断系统</h4>
+                                    <p class="text-gray-600 text-sm">结合知识推理的超声影像智能诊断，提高诊断准确性</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-2 rounded-full text-primary mr-4">
+                                    <i class="fa fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">医学教育平台</h4>
+                                    <p class="text-gray-600 text-sm">基于知识图谱的交互式学习系统，辅助超声诊断教学</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 知识图谱构建流程 -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold text-center text-dark mb-10">知识图谱构建流程</h3>
+                <div class="relative">
+                    <!-- 连接线 -->
+                    <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gray-200 transform -translate-x-1/2"></div>
+                    
+                    <div class="space-y-12 relative">
+                        <!-- 步骤1 -->
+                        <div class="md:flex items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+                                <h4 class="text-xl font-semibold text-primary mb-2">数据采集与预处理</h4>
+                                <p class="text-gray-600">
+                                    收集多源异构数据，包括超声影像、诊断报告、医学文献、电子病历等，进行标准化处理和质量控制。
+                                </p>
+                            </div>
+                            <div class="md:w-12 flex justify-center relative">
+                                <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center z-10">1</div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12">
+                                <img src="https://picsum.photos/seed/kgstep1/400/200" alt="数据采集与预处理" class="rounded-lg shadow-sm w-full h-40 object-cover">
+                            </div>
+                        </div>
+                        
+                        <!-- 步骤2 -->
+                        <div class="md:flex items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0 md:order-1 order-2">
+                                <img src="https://picsum.photos/seed/kgstep2/400/200" alt="实体识别与抽取" class="rounded-lg shadow-sm w-full h-40 object-cover">
+                            </div>
+                            <div class="md:w-12 flex justify-center relative md:order-2 order-1">
+                                <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center z-10">2</div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 md:order-3 order-3">
+                                <h4 class="text-xl font-semibold text-primary mb-2">实体识别与抽取</h4>
+                                <p class="text-gray-600">
+                                    利用自然语言处理和计算机视觉技术，从文本和影像中识别并抽取医学实体，如疾病、解剖结构、影像特征等。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- 步骤3 -->
+                        <div class="md:flex items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+                                <h4 class="text-xl font-semibold text-primary mb-2">关系抽取与构建</h4>
+                                <p class="text-gray-600">
+                                    识别实体之间的语义关系，如解剖位置关系、因果关系、诊断关系等，构建三元组形式的知识表示。
+                                </p>
+                            </div>
+                            <div class="md:w-12 flex justify-center relative">
+                                <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center z-10">3</div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12">
+                                <img src="https://picsum.photos/seed/kgstep3/400/200" alt="关系抽取与构建" class="rounded-lg shadow-sm w-full h-40 object-cover">
+                            </div>
+                        </div>
+                        
+                        <!-- 步骤4 -->
+                        <div class="md:flex items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0 md:order-1 order-2">
+                                <img src="https://picsum.photos/seed/kgstep4/400/200" alt="知识融合与推理" class="rounded-lg shadow-sm w-full h-40 object-cover">
+                            </div>
+                            <div class="md:w-12 flex justify-center relative md:order-2 order-1">
+                                <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center z-10">4</div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 md:order-3 order-3">
+                                <h4 class="text-xl font-semibold text-primary mb-2">知识融合与推理</h4>
+                                <p class="text-gray-600">
+                                    对多源知识进行融合，解决实体消歧和冲突问题，通过知识推理发现新的知识，丰富知识图谱内容。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- 步骤5 -->
+                        <div class="md:flex items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+                                <h4 class="text-xl font-semibold text-primary mb-2">应用系统开发</h4>
+                                <p class="text-gray-600">
+                                    基于构建的知识图谱，开发面向临床诊断、医学研究和教育的应用系统，实现知识的有效利用。
+                                </p>
+                            </div>
+                            <div class="md:w-12 flex justify-center relative">
+                                <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center z-10">5</div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12">
+                                <img src="https://picsum.photos/seed/kgstep5/400/200" alt="应用系统开发" class="rounded-lg shadow-sm w-full h-40 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 发表论文 -->
+    <section id="publications" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">发表论文</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                    近年来在超声影像与知识图谱领域发表的代表性学术论文
+                </p>
+            </div>
+            
+            <!-- 论文筛选 -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="px-6 py-2 rounded-full bg-primary text-white font-medium">全部</button>
+                <button class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-colors">知识图谱</button>
+                <button class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-colors">超声影像分析</button>
+                <button class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-colors">深度学习</button>
+                <button class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-colors">辅助诊断</button>
+            </div>
+            
+            <!-- 论文列表 -->
+            <div class="space-y-6 max-w-4xl mx-auto">
+                <!-- 论文1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="md:w-1/4 mb-4 md:mb-0 md:pr-6">
+                            <img src="https://picsum.photos/seed/paper1/300/200" alt="论文封面" class="rounded-lg w-full h-40 object-cover">
+                        </div>
+                        <div class="md:w-3/4">
+                            <h3 class="text-lg font-semibold text-primary mb-2">
+                                <a href="#" class="hover:underline">A Knowledge Graph-Based Framework for Ultrasonic Image Analysis and Diagnosis</a>
+                            </h3>
+                            <p class="text-gray-700 mb-2">
+                                张明, 李华, 王静, 刘强
+                            </p>
+                            <p class="text-gray-600 text-sm mb-3">
+                                <span class="font-medium">IEEE Transactions on Medical Imaging</span>, 2023, 42(5): 1234-1247
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">知识图谱</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">超声影像</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">辅助诊断</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-file-pdf-o mr-1"></i> PDF
+                                </a>
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-code mr-1"></i> 代码
+                                </a>
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-database mr-1"></i> 数据集
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 论文2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="md:w-1/4 mb-4 md:mb-0 md:pr-6">
+                            <img src="https://picsum.photos/seed/paper2/300/200" alt="论文封面" class="rounded-lg w-full h-40 object-cover">
+                        </div>
+                        <div class="md:w-3/4">
+                            <h3 class="text-lg font-semibold text-primary mb-2">
+                                <a href="#" class="hover:underline">Constructing a Large-Scale Knowledge Graph for Abdominal Ultrasound Imaging</a>
+                            </h3>
+                            <p class="text-gray-700 mb-2">
+                                李华, 张明*, 赵伟, 陈静
+                            </p>
+                            <p class="text-gray-600 text-sm mb-3">
+                                <span class="font-medium">Medical Image Analysis</span>, 2022, 78: 102345
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">知识图谱构建</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">腹部超声</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">实体识别</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-file-pdf-o mr-1"></i> PDF
+                                </a>
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-code mr-1"></i> 代码
+                                </a>
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-database mr-1"></i> 数据集
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 论文3 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="md:w-1/4 mb-4 md:mb-0 md:pr-6">
+                            <img src="https://picsum.photos/seed/paper3/300/200" alt="论文封面" class="rounded-lg w-full h-40 object-cover">
+                        </div>
+                        <div class="md:w-3/4">
+                            <h3 class="text-lg font-semibold text-primary mb-2">
+                                <a href="#" class="hover:underline">Knowledge-Guided Deep Learning for Breast Ultrasound Lesion Segmentation</a>
+                            </h3>
+                            <p class="text-gray-700 mb-2">
+                                张明, 王静, 刘强, 周明
+                            </p>
+                            <p class="text-gray-600 text-sm mb-3">
+                                <span class="font-medium">MICCAI</span>, 2021: 456-465
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">深度学习</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">乳腺超声</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">图像分割</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-file-pdf-o mr-1"></i> PDF
+                                </a>
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-code mr-1"></i> 代码
+                                </a>
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-database mr-1"></i> 数据集
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 论文4 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="md:w-1/4 mb-4 md:mb-0 md:pr-6">
+                            <img src="https://picsum.photos/seed/paper4/300/200" alt="论文封面" class="rounded-lg w-full h-40 object-cover">
+                        </div>
+                        <div class="md:w-3/4">
+                            <h3 class="text-lg font-semibold text-primary mb-2">
+                                <a href="#" class="hover:underline">Multi-modal Knowledge Graph for Thyroid Ultrasound Diagnosis</a>
+                            </h3>
+                            <p class="text-gray-700 mb-2">
+                                刘强, 张明*, 李华, 赵静
+                            </p>
+                            <p class="text-gray-600 text-sm mb-3">
+                                <span class="font-medium">IEEE Journal of Biomedical and Health Informatics</span>, 2021, 25(8): 2890-2901
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">多模态</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">甲状腺超声</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">知识融合</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-file-pdf-o mr-1"></i> PDF
+                                </a>
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-code mr-1"></i> 代码
+                                </a>
+                                <a href="#" class="text-secondary hover:text-primary transition-colors text-sm flex items-center">
+                                    <i class="fa fa-database mr-1"></i> 数据集
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+                    查看更多论文 <i class="fa fa-long-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究统计 -->
+    <section class="py-16 bg-primary text-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold mb-2 counter" data-target="30">0</div>
+                    <p class="text-white/80">发表论文</p>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold mb-2 counter" data-target="5">0</div>
+                    <p class="text-white/80">研究项目</p>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold mb-2 counter" data-target="12">0</div>
+                    <p class="text-white/80">学术会议报告</p>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold mb-2 counter" data-target="8">0</div>
+                    <p class="text-white/80">指导学生</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">联系方式</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                    欢迎就超声影像知识图谱及相关研究进行交流与合作
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <div>
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm h-full">
+                        <h3 class="text-xl font-bold text-primary mb-6">联系信息</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full text-primary mr-4">
+                                    <i class="fa fa-map-marker"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">办公地址</h4>
+                                    <p class="text-gray-600">某大学医学影像与智能诊断实验室，北京市海淀区</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full text-primary mr-4">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">邮箱</h4>
+                                    <p class="text-gray-600">zhangming@university.edu.cn</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full text-primary mr-4">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">电话</h4>
+                                    <p class="text-gray-600">+86-10-12345678</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full text-primary mr-4">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">工作时间</h4>
+                                    <p class="text-gray-600">周一至周五: 9:00 - 18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-semibold mb-4">社交媒体</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
+                                    <i class="fa fa-google"></i>
+                                </a>
+                                <a href="#" class="bg-blue-800 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="bg-gray-800 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-900 transition-colors">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                                <a href="#" class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors">
+                                    <i class="fa fa-researchgate"></i>
+                                </a>
+                                <a href="#" class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors">
+                                    <i class="fa fa-weixin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-bold text-primary mb-6">发送消息</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 mb-2">姓名</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="您的姓名">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 mb-2">邮箱</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="您的邮箱地址">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-700 mb-2">主题</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="消息主题">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 mb-2">消息内容</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的消息内容..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-primary/90 transition-colors">
+                                发送消息 <i class="fa fa-paper-plane ml-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-flask mr-2"></i> 超声影像研究
+                    </h3>
+                    <p class="text-gray-400 mb-4 max-w-md">
+                        专注于超声影像分析与医学知识图谱研究，推动人工智能在医学影像领域的创新应用，为精准医疗提供技术支持。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-google"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-researchgate"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">关于我</a></li>
+                        <li><a href="#research" class="text-gray-400 hover:text-white transition-colors">研究兴趣</a></li>
+                        <li><a href="#knowledge-graph" class="text-gray-400 hover:text-white transition-colors">知识图谱</a></li>
+                        <li><a href="#publications" class="text-gray-400 hover:text-white transition-colors">发表论文</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">联系方式</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">资源链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">数据集</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">代码库</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">研究团队</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">实验室</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">合作机构</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2023 张明 - 超声影像知识图谱研究. 保留所有权利.</p>
+                <p class="mt-2">本网站托管于 GitHub Pages</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('py-2', 'shadow');
+                navbar.classList.remove('py-3');
+            } else {
+                navbar.classList.add('py-3');
+                navbar.classList.remove('py-2', 'shadow');
+            }
+        });
+        
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible');
+                backToTopButton.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 关闭移动菜单（如果打开）
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 数字计数动画
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+        
+        const observerOptions = {
+            threshold: 0.5
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+                    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(() => {
+                            counter.innerText = Math.ceil(count + increment);
+                        }, 1);
+                    } else {
+                        counter.innerText = target;
+                        observer.unobserve(counter);
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        counters.forEach(counter => {
+            observer.observe(counter);
+        });
+    </script>
+</body>
+</html>
